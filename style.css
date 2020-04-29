@@ -4,10 +4,11 @@ h1 {
 body {
     display: flex;
     justify-content: center;
+    background-color: gray;
 }
 #calculator {
     height: 480px;
-    width: 320px;
+    width: 480px;
     display: flex;
     flex-direction: column;
     background-color: darkcyan;
@@ -15,22 +16,22 @@ body {
 .display {
     display: grid;
     grid-template-columns: 300px;
-    grid-template-rows: 45px;
+    grid-template-rows: 50px;
     justify-items: center;
     align-items: center;
-    background-color: cyan;
+    background-color: rgb(213, 219, 182);
 }
 .clearDelete {
     display: grid;
     align-items: stretch;
-    grid-template-columns: 240px 80px;
+    grid-template-columns: 75% 25%;
     height: 60px;
 }
 .ac {
     grid-column: 1;
 }
 .clear {
-    grid-column 2;
+    grid-column: 2;
 }
 .subdisplay {
     display: grid;
@@ -58,4 +59,9 @@ body {
     align-items: stretch;
     justify-items: stretch;
     height: 60px;
+}
+button {
+    background-color: rgb(72, 110, 235);
+    font-size: x-large;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

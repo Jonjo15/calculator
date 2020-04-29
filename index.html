@@ -11,7 +11,7 @@
          
         <div class="clearDelete">
             <button class="ac">AC</button>
-            <button class="delete">Delete</button>
+            <button class="delete">Del</button>
         </div>
         <div class="subdisplay">
             <div class="numbers">
@@ -43,8 +43,50 @@
 
 
     <script>
-        function operate(a, b, operator) {
-
+        let sum = 0;
+        function operate(operator, a, b) {
+            switch (operator) {
+                case division:
+                sum = division(a, b);
+                break;
+                case addition:
+                sum = addition(a, b);
+                break;
+                case subtraction:
+                sum = subtraction(a, b);
+                break;
+                case multiplication:
+                sum = multiplication(a, b);
+                break;
+        }
+        }
+        function addition(a, b) {
+            if (!b) {
+                b = sum;
+            }
+            return a + b;
+        }
+        function multiplication(a, b) {
+            if(!b) {
+                b = sum;
+            }
+            return a * b;
+        }
+        function subtraction (a, b) {
+            if(!b) {
+                let temp = a;
+                a = sum;
+                b = temp;
+            }
+            return a - b;
+        }
+        function division (a, b) {
+            if (!b) {
+                let temp = a;
+                a = sum;
+                b = temp;
+            }
+            return a / b;
         }
     </script>
 </body>
