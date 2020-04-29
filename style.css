@@ -1,3 +1,61 @@
 h1 {
     text-align: center;
 }
+body {
+    display: flex;
+    justify-content: center;
+}
+#calculator {
+    height: 480px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    background-color: darkcyan;
+}
+.display {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 45px;
+    justify-items: center;
+    align-items: center;
+    background-color: cyan;
+}
+.clearDelete {
+    display: grid;
+    align-items: stretch;
+    grid-template-columns: 240px 80px;
+    height: 60px;
+}
+.ac {
+    grid-column: 1;
+}
+.clear {
+    grid-column 2;
+}
+.subdisplay {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 100%;
+    justify-items: stretch;
+    height: 100%;
+}
+.numbers {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 33% 34% 33%;
+    grid-template-rows: 25% 25% 25% 25%;
+    align-items: stretch;
+}
+.operators {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 25% 25% 25%;
+    align-items: stretch;
+}
+.equal {
+    display: grid;
+    align-items: stretch;
+    justify-items: stretch;
+    height: 60px;
+}
