@@ -15,11 +15,13 @@ body {
 }
 .display {
     display: grid;
-    grid-template-columns: 300px;
+    width: 100%;
+    grid-template-columns: 95%;
     grid-template-rows: 50px;
-    justify-items: center;
+    justify-items: flex-end;
     align-items: center;
     background-color: rgb(213, 219, 182);
+    font-size: xx-large;
 }
 .clearDelete {
     display: grid;

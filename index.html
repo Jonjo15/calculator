@@ -10,33 +10,33 @@
         <div class="display"></div>
          
         <div class="clearDelete">
-            <button class="ac">AC</button>
-            <button class="delete">Del</button>
+            <button value="AC" class="ac">AC</button>
+            <button value="Del" class="delete">Del</button>
         </div>
         <div class="subdisplay">
             <div class="numbers">
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>+/-</button>
-                <button>0</button>
-                <button>.</button>
+                <button class="nums" value="1">1</button>
+                <button class="nums" value="2">2</button>
+                <button class="nums" value="3">3</button>
+                <button class="nums" value="4">4</button>
+                <button class="nums" value="5">5</button>
+                <button class="nums" value="6">6</button>
+                <button class="nums" value="7">7</button>
+                <button class="nums" value="8">8</button>
+                <button class="nums" value="9">9</button>
+                <button class="nums" value="+/-">+/-</button>
+                <button class="nums" value="0">0</button>
+                <button class="nums" value=".">.</button>
             </div>   
             <div class="operators">
-                <button>/</button>
-                <button>*</button>
-                <button>-</button>
-                <button>+</button>
+                <button class="nums" value="/">/</button>
+                <button class="nums" value="*">*</button>
+                <button class="nums" value="-">-</button>
+                <button class="nums" value="+">+</button>
             </div>   
         </div>
         <div class="equal">
-            <button>=</button>
+            <button class="nums" value="=">=</button>
         </div>
     </div>
 
@@ -44,6 +44,36 @@
 
     <script>
         let sum = 0;
+        let display = document.querySelector(".display");
+        display.textContent = sum;
+        let operands = [""];
+        let activeOperators = [""];
+        let operators = ["/", "*", "+", "-", "=", "+/-", "."];
+        const nums = document.querySelectorAll(".nums");
+        nums.forEach((num) => {
+            num.addEventListener("click", (e) => {
+                getNumber(e.target.value);
+            })
+        });
+        function getNumbers(num) {
+            if (operators.includes(num)) {
+                /*if(operands[operands.length -1] === "") {
+                    return;
+                }*/
+                operands.push("");
+                activeOperators[activeOperators.length - 1] += num;
+                activeOperators.push("");
+            }
+            else {
+                operands[operands.length -1] += num;
+            }
+        }
+        function updateDisplay() {
+            display.textContent = sum;
+        }
+        function clear() {
+            sum = 0; //Zavrsit ovu funkciju
+        }
         function operate(operator, a, b) {
             switch (operator) {
                 case division:
@@ -59,6 +89,7 @@
                 sum = multiplication(a, b);
                 break;
         }
+        return sum;
         }
         function addition(a, b) {
             if (!b) {
@@ -85,6 +116,10 @@
                 let temp = a;
                 a = sum;
                 b = temp;
+            }
+            if (b == 0) {
+                alert("Division by 0 not allowed")
+                return;
             }
             return a / b;
         }
