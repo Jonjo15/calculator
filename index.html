@@ -46,6 +46,11 @@
         let sum = 0;
         let last = "";
         let noDecimal = true;
+        let ac = document.querySelector(".ac");
+        ac.addEventListener("click", (e) => {
+            clear();
+            updateDisplay();
+        })
         let display = document.querySelector(".display");
         display.textContent = sum;
         let operands = [""];
@@ -65,6 +70,9 @@
             if (activeOperators[activeOperators.length -1] === "") {
                 activeOperators.pop();
             }
+            while (activeOperators.includes("*") || activeOperators.includes("/")) {
+                multAndDiv();
+            }
             result = operate(activeOperators[0], operands[0], operands[1]);
             activeOperators.shift();
             operands.shift();
@@ -78,6 +86,20 @@
             }
             sum = result;
             updateDisplay();
+        }
+        function multAndDiv() {
+            if (activeOperators.includes("*")) {
+                let index = activeOperators.indexOf("*");
+                let interResult = operate("*", operands[index], operands[index +1]);
+                activeOperators.splice(index, 1);
+                operands.splice(index, 2, interResult);    
+            }
+            if (activeOperators.includes("/")) {
+                let index = activeOperators.indexOf("/");
+                let interResult = operate("/", operands[index], operands[index +1]);
+                activeOperators.splice(index, 1);
+                operands.splice(index, 2, interResult);    
+            }
         }
         nums.forEach((num) => {
             num.addEventListener("click", (e) => {
@@ -117,7 +139,9 @@
             display.textContent = sum;
         }
         function clear() {
-            sum = 0; //Zavrsit ovu funkciju
+            sum = 0;
+            activeOperators = [""];
+            operands = [""]; //Zavrsit ovu funkciju
         }
         function displayOperations() {
             let screen = ""
