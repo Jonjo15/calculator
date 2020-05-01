@@ -58,6 +58,26 @@
         });
         function finishOperation() {
             //Zavrsit ovo
+            let result = 0;
+            if (operands[operands.length - 1] === "") {
+                operands.pop();
+            }
+            if (activeOperators[activeOperators.length -1] === "") {
+                activeOperators.pop();
+            }
+            result = operate(activeOperators[0], operands[0], operands[1]);
+            activeOperators.shift();
+            operands.shift();
+            operands.shift();
+            if (activeOperators.length > 0) {
+                while(activeOperators.length > 0 && operands.length > 0) {
+                    result = operate(activeOperators[0], result, operands[0])
+                    activeOperators.shift();
+                    operands.shift();
+                }
+            }
+            sum = result;
+            updateDisplay();
         }
         nums.forEach((num) => {
             num.addEventListener("click", (e) => {
@@ -113,16 +133,16 @@
         }
         function operate(operator, a, b) {
             switch (operator) {
-                case division:
+                case "/":
                 sum = division(a, b);
                 break;
-                case addition:
+                case "+":
                 sum = addition(a, b);
                 break;
-                case subtraction:
+                case "-":
                 sum = subtraction(a, b);
                 break;
-                case multiplication:
+                case "*":
                 sum = multiplication(a, b);
                 break;
         }
@@ -132,7 +152,7 @@
             if (!b) {
                 b = sum;
             }
-            return a + b;
+            return +a + +b;
         }
         function multiplication(a, b) {
             if(!b) {
