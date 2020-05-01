@@ -36,7 +36,7 @@
             </div>   
         </div>
         <div class="equal">
-            <button class="nums" value="=">=</button>
+            <button class="execute" value="=">=</button>
         </div>
     </div>
 
@@ -44,35 +44,72 @@
 
     <script>
         let sum = 0;
+        let last = "";
+        let noDecimal = true;
         let display = document.querySelector(".display");
         display.textContent = sum;
         let operands = [""];
         let activeOperators = [""];
-        let operators = ["/", "*", "+", "-", "=", "+/-", "."];
+        let operators = ["/", "*", "+", "-", "=", "+/-", /*"."*/]; //namistit da radi normalno decimalna tocka//done
         const nums = document.querySelectorAll(".nums");
+        let equals = document.querySelector(".execute");
+        equals.addEventListener("click", (e) => {
+            finishOperation();
+        });
+        function finishOperation() {
+            //Zavrsit ovo
+        }
         nums.forEach((num) => {
             num.addEventListener("click", (e) => {
                 getNumbers(e.target.value);
             })
         });
         function getNumbers(num) {
+            if (operators.includes(num) && operands[0] === "") {
+                return;
+            }
+            if (operators.includes(num) && operators.includes(last)) {
+                return;
+            }
             if (operators.includes(num)) {
                 /*if(operands[operands.length -1] === "") {
                     return;
                 }*/
                 operands.push("");
+                noDecimal = true;
                 activeOperators[activeOperators.length - 1] += num;
                 activeOperators.push("");
+                last = num;
             }
             else {
+                if (num == "." && !noDecimal) {
+                   return;
+                }
+                if (num === ".") {
+                    noDecimal = false;
+                }
                 operands[operands.length -1] += num;
+                last = num;
             }
+            displayOperations();
         }
         function updateDisplay() {
             display.textContent = sum;
         }
         function clear() {
             sum = 0; //Zavrsit ovu funkciju
+        }
+        function displayOperations() {
+            let screen = ""
+            for (i = 0; i < operands.length; i++) {
+                if (operands[i] != "") {
+                screen += operands[i] + " ";
+                }
+                if (operators.includes(activeOperators[i])) {
+                    screen += activeOperators[i] +" ";
+                }
+                display.textContent = screen;
+            }
         }
         function operate(operator, a, b) {
             switch (operator) {
