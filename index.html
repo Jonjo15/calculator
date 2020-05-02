@@ -46,6 +46,7 @@
         let sum = 0;
         let last = "";
         let noDecimal = true;
+        let executed = false;
         let ac = document.querySelector(".ac");
         ac.addEventListener("click", (e) => {
             clear();
@@ -85,7 +86,12 @@
                 }
             }
             sum = result;
+            executed = true;
             updateDisplay();
+            activeOperators = [""];
+            operands = [result];
+            sum = 0;
+            displayOperations();
         }
         function multAndDiv() {
             let index = firstOperator();
@@ -119,11 +125,12 @@
                 }*/
                 operands.push("");
                 noDecimal = true;
+                executed = false;
                 activeOperators[activeOperators.length - 1] += num;
                 activeOperators.push("");
                 last = num;
             }
-            else {
+            else if(!executed){
                 if (num == "." && !noDecimal) {
                    return;
                 }
@@ -140,6 +147,7 @@
         }
         function clear() {
             sum = 0;
+            executed = false;
             activeOperators = [""];
             operands = [""]; //Zavrsit ovu funkciju
         }
