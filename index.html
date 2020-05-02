@@ -24,7 +24,7 @@
                 <button class="nums" value="7">7</button>
                 <button class="nums" value="8">8</button>
                 <button class="nums" value="9">9</button>
-                <button class="nums" value="+/-">+/-</button>
+                <button class="plusMinus" value="+/-">+/-</button>
                 <button class="nums" value="0">0</button>
                 <button class="nums" value=".">.</button>
             </div>   
@@ -50,12 +50,12 @@
         ac.addEventListener("click", (e) => {
             clear();
             updateDisplay();
-        })
+        });
         let display = document.querySelector(".display");
         display.textContent = sum;
         let operands = [""];
         let activeOperators = [""];
-        let operators = ["/", "*", "+", "-", "=", "+/-", /*"."*/]; //namistit da radi normalno decimalna tocka//done
+        let operators = ["/", "*", "+", "-", "=", /*"+/-"*/, /*"."*/]; //namistit da radi normalno decimalna tocka//done
         const nums = document.querySelectorAll(".nums");
         let equals = document.querySelector(".execute");
         equals.addEventListener("click", (e) => {
