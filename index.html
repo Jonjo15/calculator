@@ -88,18 +88,18 @@
             updateDisplay();
         }
         function multAndDiv() {
-            if (activeOperators.includes("*")) {
-                let index = activeOperators.indexOf("*");
-                let interResult = operate("*", operands[index], operands[index +1]);
-                activeOperators.splice(index, 1);
-                operands.splice(index, 2, interResult);    
-            }
-            if (activeOperators.includes("/")) {
-                let index = activeOperators.indexOf("/");
-                let interResult = operate("/", operands[index], operands[index +1]);
-                activeOperators.splice(index, 1);
-                operands.splice(index, 2, interResult);    
-            }
+            let index = firstOperator();
+            let operator = activeOperators[index];
+            let interResult = operate(operator, operands[index], operands[index +1]);
+            activeOperators.splice(index, 1);
+            operands.splice(index, 2, interResult);  
+        }
+        function firstOperator() {
+            let indexM = activeOperators.indexOf("*");
+            let indexD = activeOperators.indexOf("/");
+            if (indexM === -1 && indexD != -1) return indexD;
+            if (indexD === -1 && indexM != -1) return indexM;
+            return indexM < indexD ? indexM : indexD;
         }
         nums.forEach((num) => {
             num.addEventListener("click", (e) => {
