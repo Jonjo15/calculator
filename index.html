@@ -52,11 +52,15 @@
             clear();
             updateDisplay();
         });
+        let del = document.querySelector(".delete");
+        del.addEventListener("click", (e) => {
+            deleteLast();
+        });
         let display = document.querySelector(".display");
         display.textContent = sum;
         let operands = [""];
         let activeOperators = [""];
-        let operators = ["/", "*", "+", "-", "=", /*"+/-"*/, /*"."*/]; //namistit da radi normalno decimalna tocka//done
+        let operators = ["/", "*", "+", "-", "=", /*"+/-"*/ /*"."*/]; //namistit da radi normalno decimalna tocka//done
         const nums = document.querySelectorAll(".nums");
         let equals = document.querySelector(".execute");
         equals.addEventListener("click", (e) => {
@@ -89,7 +93,8 @@
             executed = true;
             updateDisplay();
             activeOperators = [""];
-            operands = [result];
+            operands = [result + ""];
+            last = result + "";
             sum = 0;
             displayOperations();
         }
@@ -106,6 +111,48 @@
             if (indexM === -1 && indexD != -1) return indexD;
             if (indexD === -1 && indexM != -1) return indexM;
             return indexM < indexD ? indexM : indexD;
+        }
+        function deleteLast() {
+            if (operators.includes(last)) {
+                if (activeOperators[activeOperators.length -1] == "") {
+                    activeOperators.pop();
+                }
+                activeOperators[activeOperators.length -1] = "";
+                opLast = operands[operands.length -1];
+                last = opLast[opLast.length -1];
+            }
+            else {
+                delNum();
+            }
+            displayOperations();
+        }
+        function delNum() {
+            if (operands[operands.length -1] == "") {
+                operands.pop();
+            }
+            if ((operands.length == 1 && operands[0].length == 1) || operands.length == 0) {
+                clear();
+                updateDisplay();
+                last = "";
+            }
+            let lastNum = operands[operands.length -1];
+            if (lastNum.length == 1) {
+                operands[operands.length -1] = "";
+            }
+            else {
+                operands[operands.length -1] = lastNum.slice(0, -1);
+            }
+            //operands[operands.length -1] = lastNum.split("").pop().join("");
+            if (operands[operands.length -1] == "") {
+                operands.pop();
+                if (activeOperators[activeOperators.length -1] == "") {
+                    activeOperators.pop();
+                    last = activeOperators[activeOperators.length -1];
+                }
+                else {
+                    last = activeOperators[activeOperators.length -1];
+                }
+            }
         }
         nums.forEach((num) => {
             num.addEventListener("click", (e) => {
