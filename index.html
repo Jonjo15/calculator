@@ -47,6 +47,11 @@
         let last = "";
         let noDecimal = true;
         let executed = false;
+        let plusMinus = document.querySelector(".plusMinus");
+        plusMinus.addEventListener("click", (e) => {
+            minusPlus();
+            displayOperations();
+        });
         let ac = document.querySelector(".ac");
         ac.addEventListener("click", (e) => {
             clear();
@@ -112,7 +117,26 @@
             if (indexD === -1 && indexM != -1) return indexM;
             return indexM < indexD ? indexM : indexD;
         }
+        function minusPlus() {
+            let lastNumber = operands[operands.length -1];
+            if (lastNumber[0] === "-") {
+                operands[operands.length -1] = lastNumber.substr(1);
+            }
+            else {
+                let newNumber = lastNumber.split("");
+                newNumber.unshift("-");
+                operands[operands.length -1] = newNumber.join("");
+            }
+        }
         function deleteLast() {
+            if(operands == [""] && activeOperators == [""]) {
+                return;
+            }
+            /*if (last === "") {
+                sum = "0";
+                updateDisplay();
+                return;                
+            }*/
             if (operators.includes(last)) {
                 if (activeOperators[activeOperators.length -1] == "") {
                     activeOperators.pop();
@@ -124,16 +148,27 @@
             else {
                 delNum();
             }
+            if (last === "") {
+                sum = "0";
+                updateDisplay();
+                return;                
+            }
             displayOperations();
         }
         function delNum() {
-            if (operands[operands.length -1] == "") {
-                operands.pop();
-            }
-            if ((operands.length == 1 && operands[0].length == 1) || operands.length == 0) {
-                clear();
+            /*if(operands == [""] && activeOperators == [""]) {
+                return;
+            }*/
+            if ((operands.length == 1 && operands[0].length == 1)) {
+                operands = [""];
+                activeOperators[""];
+                sum = "0";
                 updateDisplay();
                 last = "";
+                return;
+            }
+            if ((operands[operands.length -1] == "") && operands.length > 1) {
+                operands.pop();
             }
             let lastNum = operands[operands.length -1];
             if (lastNum.length == 1) {
@@ -143,9 +178,9 @@
                 operands[operands.length -1] = lastNum.slice(0, -1);
             }
             //operands[operands.length -1] = lastNum.split("").pop().join("");
-            if (operands[operands.length -1] == "") {
+            if ((operands[operands.length -1] == "") && operands.length > 1) {
                 operands.pop();
-                if (activeOperators[activeOperators.length -1] == "") {
+                if ((activeOperators[activeOperators.length -1] == "") && activeOperators.length > 1) {
                     activeOperators.pop();
                     last = activeOperators[activeOperators.length -1];
                 }
@@ -193,7 +228,7 @@
             display.textContent = sum;
         }
         function clear() {
-            sum = 0;
+            sum = "0";
             executed = false;
             activeOperators = [""];
             operands = [""]; //Zavrsit ovu funkciju
