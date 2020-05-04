@@ -101,6 +101,7 @@
             operands = [result + ""];
             last = result + "";
             sum = 0;
+            executed = false;
             displayOperations();
         }
         function multAndDiv() {
@@ -171,6 +172,9 @@
                 operands.pop();
             }
             let lastNum = operands[operands.length -1];
+            if (lastNum[lastNum.length -1] == ".") {
+                noDecimal = true;
+            }
             if (lastNum.length == 1) {
                 operands[operands.length -1] = "";
             }
