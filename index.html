@@ -95,14 +95,20 @@
                 }
             }
             sum = result;
+            if (sum == undefined) {
+                result = "";
+                sum = "0";
+            }
             executed = true;
             updateDisplay();
             activeOperators = [""];
             operands = [result + ""];
             last = result + "";
-            sum = 0;
+            sum = "0";
             executed = false;
-            displayOperations();
+            if (operands[0] != "") {
+                displayOperations();
+            }
         }
         function multAndDiv() {
             let index = firstOperator();
@@ -294,6 +300,9 @@
             }
             if (b == 0) {
                 alert("Division by 0 not allowed")
+                clear();
+                operands = [""];
+                updateDisplay();
                 return;
             }
             return a / b;
